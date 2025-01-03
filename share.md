@@ -295,7 +295,7 @@ Here’s a stepwise markdown documentation for deploying a Dockerized applicatio
 
 # AWS Docker Image Deployment Using ECS Fargate
 
-This guide provides a stepwise process for deploying a Dockerized application on AWS ECS using Fargate. The process includes creating a security group, configuring a load balancer, setting up a private repository in AWS ECR, and deploying the application via an ECS cluster.
+This guide provides a stepwise process for deploying a Dockerized application service on AWS using the ECR and  ECS -Launch Type- Fargate. The process includes creating a security group, configuring a load balancer, setting up a private repository in AWS ECR, and deploying the application via an ECS cluster.
 
 ---
 
