@@ -272,10 +272,7 @@ curl -X POST http://localhost:3001/addItems \
 
 ---
 
-This documentation provides a comprehensive overview of the API endpoints for adding communities and items. Feel free to refer to this for constructing requests and understanding the responses.
 
-
-Here’s a stepwise markdown documentation for deploying a Dockerized application on AWS using ECS Fargate, including creating necessary resources like security groups, load balancers, and a private repository.
 
 ---
 ## Usage
@@ -291,6 +288,10 @@ Here’s a stepwise markdown documentation for deploying a Dockerized applicatio
 - Explore the "Special Offers" section to find discounted and ethical products.
 
 
+This documentation provides a comprehensive overview of the API endpoints for adding communities and items. Feel free to refer to this for constructing requests and understanding the responses.
+
+
+Here’s a stepwise markdown documentation for deploying a Dockerized application on AWS using ECS Fargate, including creating necessary resources like security groups, load balancers, and a private repository.
 
 # AWS Docker Image Deployment Using ECS Fargate
 
