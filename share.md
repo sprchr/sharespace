@@ -307,46 +307,63 @@ This guide provides a stepwise process for deploying a Dockerized application se
 
 ---
 
-## Step 1: **Create a Security Group**
-
-1. Open the AWS Management Console and navigate to the **VPC** service.
-2. Select **Security Groups** and click **Create Security Group**.
-3. Provide the following details:
-   - **Name**: `ecs-sg`
-   - **Description**: `Security group for ECS tasks`
-   - **VPC**: Select the appropriate VPC.
-4. Configure **Inbound Rules**:
-   - **HTTP**: Port `80`, Source `0.0.0.0/0` (or your specific IP range for security).
-   - **Custom TCP**: Port `3001` (or your application port), Source `0.0.0.0/0`.
-5. Configure **Outbound Rules**:
-   - **All Traffic**: Destination `0.0.0.0/0`.
-6. Click **Create Security Group**.
+Here’s a revised version of the instructions that consolidates the security group creation in Step 1 and references it appropriately in Step 2:  
 
 ---
 
-## Step 2: **Create a Load Balancer**
+### **Step 1: Create Security Groups**  
 
-1. Navigate to the **EC2** service and select **Load Balancers**.
-2. Click **Create Load Balancer** and select **Application Load Balancer**.
-3. Provide the following details:
-   - **Name**: `ecs-load-balancer`
-   - **Scheme**: `Internet-facing`.
-   - **IP Address Type**: `IPv4`.
-   - **Listeners**: Add a listener for HTTP (port `80`).
-4. Configure **Availability Zones**:
-   - Select your VPC and associated subnets.
-5. Configure **Security Group**:
-   - Attach the security group created in Step 1.
-6. Configure **Target Group**:
-   - Target Type: `IP`.
-   - Name: `ecs-target-group`.
-   - Protocol: `HTTP`.
-   - Port: `3001` (or your application port).
-7. Register Targets:
-   - Leave empty for now (targets will be added dynamically by ECS).
-8. Review and create the load balancer.
+1. Open the AWS Management Console and navigate to the **VPC** service.  
+2. Select **Security Groups** and click **Create Security Group**.  
+3. Create the following security groups:  
+
+   **Security Group 1 (For ECS Tasks):**  
+   - **Name**: `share-space-ecs`  
+   - **Description**: `Security group for ECS tasks`  
+   - **VPC**: Select the appropriate VPC.  
+   - **Inbound Rules**:  
+     - **Custom TCP**: Port `3001` (or your application port), Source `0.0.0.0/0`.  
+   - **Outbound Rules**:  
+     - **All Traffic**: Destination `0.0.0.0/0`.  
+
+   **Security Group 2 (For Load Balancer):**  
+   - **Name**: `share-space-sg`  
+   - **Description**: `Security group for the Load Balancer`  
+   - **VPC**: Select the appropriate VPC.  
+   - **Inbound Rules**:  
+     - **HTTP**: Port `80`, Source `0.0.0.0/0` (or your specific IP range for security).  
+   - **Outbound Rules**:  
+     - **All Traffic**: Destination `0.0.0.0/0`.  
+
+4. Click **Create Security Group** for both.  
 
 ---
+
+### **Step 2: Create a Load Balancer**  
+
+1. Navigate to the **EC2** service and select **Load Balancers**.  
+2. Click **Create Load Balancer** and select **Application Load Balancer**.  
+3. Provide the following details:  
+   - **Name**: `ecs-load-balancer`.  
+   - **Scheme**: `Internet-facing`.  
+   - **IP Address Type**: `IPv4`.  
+   - **Listeners**: Add a listener for HTTP (port `80`).  
+4. Configure **Availability Zones**:  
+   - Select your VPC and associated subnets.  
+5. Configure **Security Group**:  
+   - Attach the security group created in **Step 1** (`ecs-load-balancer-sg`).  
+6. Configure **Target Group**:  
+   - **Target Type**: `IP`.  
+   - **Name**: `ecs-target-group`.  
+   - **Protocol**: `HTTP`.  
+   - **Port**: `3001` (or your application port).  
+7. Register Targets:  
+   - Leave empty for now (targets will be added dynamically by ECS).  
+8. Review and create the load balancer.  
+
+--- 
+
+This structure ensures that all security groups are clearly defined in Step 1 and referenced accordingly in Step 2.
 
 ## Step 3: **Push Docker Image to AWS ECR**
 
